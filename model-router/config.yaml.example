@@ -1,0 +1,85 @@
+# ============================================================================
+# model-router — Configuration File
+# ============================================================================
+# Defines an ordered list of providers. Each request tries them in sequence.
+# The first working provider handles the task. If it fails, the next is tried.
+#
+# Supported formats: .json, .yaml, .yml
+# Location: ~/.model-router/config.yaml
+# ============================================================================
+
+routers:
+
+  # ── Primary: Cloud API ──────────────────────────────────────────────────
+  # Your main provider. Use OpenRouter for access to many models via one API,
+  # or pick a specific provider like OpenAI or Anthropic.
+  - name: primary-cloud
+    provider: openrouter           # openrouter | openai | anthropic | custom
+    model: your-cloud-model-name   # e.g. deepseek/deepseek-v4-flash, gpt-4o
+    tier: cloud                    # cloud | local — used for task classification
+    # api_key: your-api-key        # Optional — defaults to OPENROUTER_API_KEY env var
+    # api_key_env: MY_CUSTOM_KEY   # Alternative: read key from this env var
+
+  # ── Fallback: Local Ollama ──────────────────────────────────────────────
+  # A local LLM server. Works when cloud is down or for simple tasks.
+  # Ollama is free, open-source, and runs on any GPU (or CPU-only).
+  - name: local-ollama
+    provider: ollama               # ollama — auto-detected via /api/tags
+    model: llama3:70b              # Any model you have pulled in Ollama
+    base_url: http://localhost:11434  # Default Ollama port
+    tier: local
+
+  # ── Fallback: LM Studio ─────────────────────────────────────────────────
+  # LM Studio provides a convenient GUI for downloading and running models.
+  # Requires the local server to be started (Local Server tab → Start Server).
+  # - name: local-lmstudio
+  #   provider: lmstudio            # lmstudio — probed via /v1/models
+  #   model: gpt-oss-20b            # Model name as shown in LM Studio
+  #   base_url: http://localhost:1234/v1
+  #   tier: local
+  #   # api_key: sk-...             # Only if LM Studio has auth enabled
+
+  # ── Fallback: llama.cpp server ──────────────────────────────────────────
+  # Lightweight and fast. Runs well on older GPUs and CPU.
+  # - name: local-llamacpp
+  #   provider: llamacpp
+  #   model: phi-4-q4
+  #   base_url: http://localhost:8080/v1
+  #   tier: local
+
+  # ── Fallback: vLLM server ───────────────────────────────────────────────
+  # High-throughput serving. Best for production local inference.
+  # - name: local-vllm
+  #   provider: vllm
+  #   model: meta-llama/Meta-Llama-3-70B-Instruct
+  #   base_url: http://localhost:8000/v1
+  #   tier: local
+  #   # api_key: from VLLM_API_KEY env var
+
+  # ── Remote custom endpoint ──────────────────────────────────────────────
+  # Any OpenAI-compatible API on your LAN or the internet.
+  # - name: remote-server
+  #   provider: custom
+  #   model: my-custom-model
+  #   base_url: http://192.168.1.100:5000/v1
+  #   tier: cloud
+  #   api_key_env: REMOTE_API_KEY
+
+# ── Task Classification Overrides (optional) ────────────────────────────────
+# By default, the agent classifies tasks as "complex" (→ cloud) or "simple"
+# (→ local). Override specific task types to use specific tiers.
+#
+# task_routing:
+#   code_generation: local       # Route code writing to local model
+#   summarization: local         # Route summarization to local model
+#   creative_writing: cloud      # Route creative to cloud model
+#   analysis: cloud              # Route complex analysis to cloud
+
+# ── Timeouts (optional) ─────────────────────────────────────────────────────
+# Probe timeout in seconds per provider. Default: 10
+# probe_timeout: 8
+
+# ── Logging (optional) ──────────────────────────────────────────────────────
+# Log routing decisions to a file for debugging.
+# log_path: ~/.model-router/router.log
+# log_level: info  # debug | info | warn | error

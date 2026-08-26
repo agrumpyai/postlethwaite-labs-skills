@@ -1,0 +1,5 @@
+{
+  "vendors": ["microsoft", "adobe", "oracle", "cisco", "fortinet"],
+  "products": ["exchange server", "acrobat", "webex", "fortios", "big-ip"],
+  "cves": ["CVE-2021-44228", "CVE-2023-44487"]
+}

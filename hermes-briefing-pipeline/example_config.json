@@ -1,0 +1,23 @@
+{
+  "date": "26 August 2026",
+  "title": "Your Daily Briefing",
+  "sections": [
+    ["Top Stories",
+     "This is a sample briefing section. Replace this JSON with your own data sources.\n\nYou can pipe RSS feeds, API responses, or web scraping results into this format. Hermes Agent can generate the JSON for you automatically using the included SKILL.md."],
+    ["Weather",
+     "Weather data goes here. Pull from any public weather API and format as a text block.\n\nExample: Barton Mills: 19°C, light rain, wind 12mph SE."],
+    ["Tech News",
+     "A third section demonstrates how to add multiple topics. Each section gets its own headline and accent-colored divider line."]
+  ],
+  "sources": [
+    ["BBC News", "https://www.bbc.co.uk/news"],
+    ["Hermes Agent Docs", "https://hermes-agent.nousresearch.com/docs"],
+    ["Custom RSS Feed", "https://example.com/feed"]
+  ],
+  "style": {
+    "header_bg": [10, 12, 20],
+    "accent_color": [200, 60, 40],
+    "font_family": "Helvetica",
+    "header_text_color": [255, 255, 255]
+  }
+}
