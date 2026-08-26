@@ -42,4 +42,4 @@ python3 threat_aggregator.py --limit 5
 Dupes across sources are merged (keeps most descriptive title).
 
 ---
-☕ If this skill saves you time, [buy me a coffee](https://buymeacoffee.com/postlethwaitelabs)
+☕ If this skill saves you time, [buy me a coffee](https://buymeacoffee.com/postlethwaite)

@@ -8,7 +8,7 @@ in production, cybersecurity operations, and single-operator automation.
 ## ☕ Support the work
 
 These skills are free forever. If one of them saves you time, money, or a
-late night — [**buy me a coffee**](https://buymeacoffee.com/postlethwaitelabs) ☕
+late night — [**buy me a coffee**](https://buymeacoffee.com/postlethwaite) ☕
 
 Your support funds more free skills and keeps the marketplace growing.
 

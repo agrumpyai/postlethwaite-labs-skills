@@ -105,4 +105,4 @@ and FIRST EPSS API. No telemetry, no accounts, no data leaves your machine
 except the two public API requests.
 ## ☕ Support
 
-If this skill helps you, consider [buying me a coffee](https://buymeacoffee.com/postlethwaitelabs).
+If this skill helps you, consider [buying me a coffee](https://buymeacoffee.com/postlethwaite).

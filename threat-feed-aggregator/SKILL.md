@@ -89,4 +89,4 @@ parties. The script runs entirely on your machine.
 
 ## ☕ Support
 
-If this skill helps you, consider [buying me a coffee](https://buymeacoffee.com/postlethwaitelabs).
+If this skill helps you, consider [buying me a coffee](https://buymeacoffee.com/postlethwaite).

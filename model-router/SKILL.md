@@ -239,4 +239,4 @@ If none of these commands are available, the script reports "no GPU detected" an
 - [ ] No hardcoded IPs, tokens, or model names appear in any file
 ## ☕ Support
 
-If this skill helps you, consider [buying me a coffee](https://buymeacoffee.com/postlethwaitelabs).
+If this skill helps you, consider [buying me a coffee](https://buymeacoffee.com/postlethwaite).
