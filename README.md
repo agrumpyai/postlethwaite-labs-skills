@@ -22,6 +22,7 @@ Your support funds more free skills and keeps the marketplace growing.
 | [Threat Feed Aggregator](threat-feed-aggregator/) | Security & Compliance | Dedupe cyber threat news from 5 trusted sources into one clean briefing. |
 | [Agensi Publisher](agensi-publisher/) | Developer Tools | Publish AI agent skills to the Agensi marketplace end-to-end. A meta-skill for creators. |
 | [Update Checker](update-checker/) | Developer Tools | Check whether software updates are worth installing — release notes, security context, and a clear verdict. |
+| [Chat Games](chat-games/) | Entertainment | Play 20 Questions, hangman, trivia, riddles, text adventures, and more with your agent. |
 
 ## 🚀 Get started
 
