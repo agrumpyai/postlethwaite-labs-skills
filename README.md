@@ -20,6 +20,7 @@ Your support funds more free skills and keeps the marketplace growing.
 | [CISA KEV Vulnerability Monitor](cisa-kev-monitor/) | Security & Compliance | Watch the CISA Known Exploited Vulnerabilities catalog against your own stack. EPSS-enriched alerts. |
 | [Daily Briefing Pipeline](hermes-briefing-pipeline/) | Productivity | Automated branded PDF briefings via cron — scrape, summarise, PDF, email. |
 | [Threat Feed Aggregator](threat-feed-aggregator/) | Security & Compliance | Dedupe cyber threat news from 5 trusted sources into one clean briefing. |
+| [Agensi Publisher](agensi-publisher/) | Developer Tools | Publish AI agent skills to the Agensi marketplace end-to-end. A meta-skill for creators. |
 
 ## 🚀 Get started
 
