@@ -23,6 +23,7 @@ Your support funds more free skills and keeps the marketplace growing.
 | [Agensi Publisher](agensi-publisher/) | Developer Tools | Publish AI agent skills to the Agensi marketplace end-to-end. A meta-skill for creators. |
 | [Update Checker](update-checker/) | Developer Tools | Check whether software updates are worth installing — release notes, security context, and a clear verdict. |
 | [Chat Games](chat-games/) | Entertainment | Play 20 Questions, hangman, trivia, riddles, text adventures, and more with your agent. |
+| [LLM GPU Fit](llm-gpu-fit/) | AI Agents & LLM Ops | Check if an LLM fits your GPU before downloading it — VRAM, context, and agent compatibility in one decision procedure. |
 
 ## 🚀 Get started
 
