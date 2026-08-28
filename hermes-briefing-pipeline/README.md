@@ -100,7 +100,6 @@ Open an issue on GitHub or ask in the [Hermes Agent Discord](https://discord.gg/
 
 ---
 
-Built for Hermes Agent by Postlethwaite Labs.
-
----
 ☕ If this skill saves you time, [buy me a coffee](https://buymeacoffee.com/postlethwaite)
+
+Built for Hermes Agent by Postlethwaite Labs.

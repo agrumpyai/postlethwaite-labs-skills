@@ -50,5 +50,7 @@ python3 kev_monitor.py --watchlist watchlist.json --send-to you@yourdomain.com
 ## Privacy
 
 Only two public API calls (CISA + FIRST), no accounts, no telemetry.
+
 ---
+
 ☕ If this skill saves you time, [buy me a coffee](https://buymeacoffee.com/postlethwaite)

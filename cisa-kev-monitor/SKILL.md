@@ -12,8 +12,11 @@ tags:
   - vulnerability-monitoring
   - epss
   - threat-intelligence
-  - alerts
----
+external_urls:
+  - https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json
+  - https://api.first.org/data/v1/epss
+permissions:
+  - network
 
 # CISA KEV Vulnerability Monitor
 
@@ -103,6 +106,7 @@ summary of the whole catalog (good for sanity checks).
 Fully client-side. The script only calls public APIs: CISA KEV JSON feed
 and FIRST EPSS API. No telemetry, no accounts, no data leaves your machine
 except the two public API requests.
+
 ## ☕ Support
 
 If this skill helps you, consider [buying me a coffee](https://buymeacoffee.com/postlethwaite).
