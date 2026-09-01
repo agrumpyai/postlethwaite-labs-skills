@@ -4,7 +4,7 @@ Threat Feed Aggregator — collect + dedupe cyber threat items from trusted
 feeds into one clean list for briefings, reports, or newsletters.
 
 Sources (all public, no API keys):
-  - threatline.io (scrape, JS site, regex extraction)
+  - threatline.io (official RSS feed)
   - The Hacker News (RSS via Feedburner)
   - BleepingComputer (RSS)
   - Dark Reading (RSS)
@@ -27,21 +27,14 @@ from urllib.error import URLError, HTTPError
 
 USER_AGENT = "threat-feed-aggregator/1.0 (cyber briefing monitor)"
 
-THREATLINE_URL = "https://threatline.io/"
+THREATLINE_FEED_URL = "https://ip999--5ce29234a23711f192281607ee4eb77e.web.val.run/feed"
 FEEDS = {
+    "threatline": THREATLINE_FEED_URL,
     "the_hacker_news": "https://feeds.feedburner.com/TheHackersNews",
     "bleepingcomputer": "https://www.bleepingcomputer.com/feed/",
     "dark_reading": "https://www.darkreading.com/rss.xml",
     "theregister": "https://www.theregister.com/security/headlines.atom",
 }
-
-# Allowed domains for the threatline scrape (anchors on these)
-THREATLINE_DOMAINS = (
-    "https://thehackernews.com",
-    "https://www.bleepingcomputer.com",
-    "https://www.darkreading.com",
-    "https://www.theregister.com",
-)
 
 
 def http_get(url, headers=None):
@@ -58,28 +51,12 @@ def http_get(url, headers=None):
         return b""
 
 
-def threatline_items(html_text):
-    """threatline.io homepage -> [(title, url)].
-    threatline.io is a JS-rendered site with NO RSS; regex is the only way.
-    It anchors links to the 4 major security outlets."""
-    items = re.findall(
-        r'<a[^>]+href="('
-        r'https://(?:thehackernews|www\.bleepingcomputer|'
-        r'www\.darkreading|www\.theregister)\.com[^"]+)'
-        r'"[^>]*>([^<]{10,200})</a>',
-        html_text,
-    )
-    seen, out = set(), []
-    for url, title in items:
-        title = html.unescape(title).strip()
-        if url not in seen and len(title) > 15:
-            seen.add(url)
-            out.append((title, url))
-    return out  # typically ~10 items
+def rss_items(xml_bytes, limit=6, min_title_len=15):
+    """Parse an RSS/Atom feed -> [(title, desc, url)].
 
-
-def rss_items(xml_bytes, limit=6):
-    """Parse an RSS/Atom feed -> [(title, desc, url)]."""
+    Handles both RSS (<item>) and Atom (<entry>) shapes; strips HTML from
+    descriptions; applies the min-title-len filter.
+    """
     try:
         root = ET.fromstring(xml_bytes)
     except ET.ParseError as e:
@@ -100,26 +77,21 @@ def rss_items(xml_bytes, limit=6):
         desc = it.findtext("description") or it.findtext("summary") or ""
         desc = re.sub(r"<[^>]+>", "", html.unescape(desc)).strip()[:250]
         if title:
-            out.append((html.unescape(title).strip(), desc, link))
+            title = html.unescape(title).strip()
+            if len(title) >= min_title_len:
+                out.append((title, desc, link))
     return out
 
 
-def fetch_all(limit_per_feed):
+def fetch_all(limit_per_feed, min_title_len):
     """Fetch all sources, returning dict {source: [(title, url)]}."""
     results = {}
 
-    # threatline scrape
-    raw = http_get(THREATLINE_URL)
-    if raw:
-        items = threatline_items(raw.decode("utf-8", "replace"))
-        results["threatline"] = [(t, u) for t, u in items[:limit_per_feed * 3]]
-        print(f"[*] threatline.io: {len(items)} items", file=sys.stderr)
-
-    # RSS feeds
+    # RSS feeds (threatline included — it now serves a proper RSS feed)
     for name, url in FEEDS.items():
         raw = http_get(url)
         if raw:
-            items = rss_items(raw, limit=limit_per_feed)
+            items = rss_items(raw, limit=limit_per_feed, min_title_len=min_title_len)
             results[name] = [(t, u) for t, _, u in items]
             print(f"[*] {name}: {len(items)} items", file=sys.stderr)
 
@@ -172,17 +144,7 @@ def main():
                     help="skip titles shorter than this (default 15)")
     args = ap.parse_args()
 
-    # Patch threatline_items to respect min-title-len
-    global threatline_items
-    if args.min_title_len != 15:
-        def threatline_items(html_text, _orig=threatline_items, _min=args.min_title_len):
-            out = []
-            for t, u in _orig(html_text):
-                if len(t) >= _min:
-                    out.append((t, u))
-            return out
-
-    results = fetch_all(args.limit)
+    results = fetch_all(args.limit, args.min_title_len)
     items = dedupe(results)
     source_counts = {k: len(v) for k, v in results.items()}
 

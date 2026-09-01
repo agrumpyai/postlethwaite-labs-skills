@@ -8,7 +8,7 @@ Collect + dedupe cyber threat news from 5 trusted sources for your daily briefin
 - BleepingComputer (RSS)
 - Dark Reading (RSS)
 - The Register Security (Atom)
-- threatline.io (scrape — anchors to all 4 above)
+- threatline.io (RSS feed)
 
 ## Install
 

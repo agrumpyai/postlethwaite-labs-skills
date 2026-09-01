@@ -13,6 +13,14 @@ tags:
   - briefing
   - rss
   - monitoring
+external_urls:
+  - https://ip999--5ce29234a23711f192281607ee4eb77e.web.val.run/feed
+  - https://feeds.feedburner.com/TheHackersNews
+  - https://www.bleepingcomputer.com/feed
+  - https://www.darkreading.com/rss.xml
+  - https://www.theregister.com/security/headlines.atom
+permissions:
+  - network
 ---
 
 # Threat Feed Aggregator
@@ -25,7 +33,7 @@ daily cyber brief PDFs.
 
 | Source | Method | Coverage |
 |---|---|---|
-| threatline.io | Scrape (regex) | Anchors links to all 4 major outlets below |
+| threatline.io | RSS (official feed) | Anchors links to all 4 major outlets below |
 | The Hacker News | RSS | Broad infosec news, exploits, vulnerabilities |
 | BleepingComputer | RSS | Tech-level security news, malware, ransomware |
 | Dark Reading | RSS | Enterprise security, risk management, cyber strategy |
@@ -78,14 +86,14 @@ parties. The script runs entirely on your machine.
 
 ## Pitfalls
 
-- threatline.io has no RSS and no structured API — regex scrape is the only
-  option. If their HTML template changes significantly, that source will
-  silently return zero items. Check `threatline` count in output headers.
+- The threatline feed is hosted on a val.run (Val Town) URL — if the host
+  changes or disappears, that source returns zero items. Check `threatline`
+  count in output headers.
 - Feedburner URLs (The Hacker News) require following redirects — handled
   by urllib automatically.
-- Items from `threatline` are scraped from anchor tags pointing to the 4
-  major outlets; duplicate-detection across raw-RSS and scraped links is
-  best-effort (URL normalization drops anchors and trailing slashes).
+- Multiple sources often link the same story (especially threatline, which
+  aggregates the other 4 outlets) — duplicate-detection normalizes URLs
+  (drops anchors and trailing slashes) and merges them.
 
 ## ☕ Support
 
