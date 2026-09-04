@@ -1,7 +1,7 @@
 ---
 name: llm-gpu-fit
 description: Check if an LLM fits your GPU VRAM and agent context minimums — architecture-aware VRAM math, KV cache estimation, and the 3-way fit check (VRAM + context + agent compatibility) so you stop downloading models that can't run.
-version: 1.0.0
+version: 1.2.0
 author: Postlethwaite Labs
 license: MIT
 domain: mlops
