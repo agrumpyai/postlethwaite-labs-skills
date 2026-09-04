@@ -64,6 +64,42 @@ platforms — other marketplaces have their own flows.
 A complete profile matters — buyers check who made a skill before
 installing it.
 
+### Step 2.5: Test standalone + build the ZIP (before you submit)
+
+**Test the skill standalone first.** A script that works inside your own
+project can carry a hidden dependency that breaks it for every buyer — worst
+case it imports a module from *your* project. Real failure caught in the
+field (2026-09-04): a tool `import app.llm` that only existed in the author's
+private project; the skill would have been DOA for anyone else. The leak gate
+can't catch import errors — only strings.
+
+- Copy the skill dir somewhere clean and run every script from there (not
+  the project root, and with your project's venv NOT on the path).
+- Grep for imports that only make sense in your project (`from app.`,
+  private module names) and embed or remove them.
+- Re-run the leak gate on the clean copy.
+
+**Build the ZIP with Python — the `zip` CLI is often not installed.** Use
+stdlib (skip `__pycache__`, skip `*.pyc`):
+
+```python
+python3 -c "
+import zipfile, os
+out = '<skill>.zip'
+with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
+    base = '<skill>'
+    for root, dirs, files in os.walk(base):
+        dirs[:] = [d for d in dirs if d != '__pycache__']
+        for f in files:
+            if f.endswith('.pyc'): continue
+            p = os.path.join(root, f); z.write(p, p)
+print('wrote', out)
+"
+```
+
+Then leak-gate the **ZIP itself** (decode each entry, regex the patterns) —
+the ZIP is what Agensi parses, so it must be clean even if the source dir is.
+
 ### Step 3: Submit a Skill
 
 1. Go to `https://www.agensi.io/dashboard/submit`

@@ -150,6 +150,19 @@ reliable pick for 8-12GB GPUs at long context.
 - **Server-reported context is what matters** — an agent reads `/api/show` /
   the OpenAI metadata, not your desired config. Verify what the server
   reports before wiring anything.
+- **Server loads at GGUF-max context, not what fits** (LM Studio trap,
+  tested 2026-09-04). LM Studio sizes the KV cache from the GGUF's reported
+  `max_context_length` unless you load it explicitly — so a 14B Q4_K_M that
+  "fits" your math at 32K still loads at 131K and OOMs a 16GB card
+  (~31GB needed). Every request dies with `{"error":"terminated"}` even at
+  tiny max_tokens. Fix: load at an explicit context via the v1 API
+  (`POST /api/v1/models/load` with `context_length`). Verified fits on 16GB:
+  Qwen2.5-Coder-14B Q4_K_M @ 32768 (~9.5GB weights + ~5.2GB KV, flash
+  attention on); 7B coder @ 64K+ comfortable.
+- **Two "loaded" models on one 16GB box**: LM Studio may keep both resident
+  by CPU-offloading the second — both show in `loaded_instances`, the
+  offloaded one just runs slower. Eviction isn't automatic; unload explicitly
+  when you need guaranteed residency for a swap.
 
 ## Verification
 

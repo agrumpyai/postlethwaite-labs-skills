@@ -24,6 +24,7 @@ Your support funds more free skills and keeps the marketplace growing.
 | [Update Checker](update-checker/) | Developer Tools | Check whether software updates are worth installing — release notes, security context, and a clear verdict. |
 | [Chat Games](chat-games/) | Entertainment | Play 20 Questions, hangman, trivia, riddles, text adventures, and more with your agent. |
 | [LLM GPU Fit](llm-gpu-fit/) | AI Agents & LLM Ops | Check if an LLM fits your GPU before downloading it — VRAM, context, and agent compatibility in one decision procedure. |
+| [Local Codegen Workflow](local-codegen-workflow/) | AI Agents & LLM Ops | Generate production code with a local LLM on the GPU you already own — spec-driven, with auto model-loading and a review checklist. |
 
 ## 🚀 Get started
 
