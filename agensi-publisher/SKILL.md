@@ -1,7 +1,7 @@
 ---
 name: agensi-publisher
 description: Publish AI agent skills to the Agensi marketplace end-to-end — account setup, profile, ZIP submission, admin review, updates, and handling the 8-point security scan. Works for any creator listing their first SKILL.md-based skill.
-version: 1.2.0
+version: 1.3.0
 author: Postlethwaite Labs
 license: MIT
 domain: productivity
