@@ -1,0 +1,14 @@
+{
+  "_comment": "OpenRouter Cost Watch config. Copy this file to ~/.openrouter-cost-watch/config.json (or your own location) and edit. Models must be exact OpenRouter model IDs from https://openrouter.ai/api/v1/models. in_pct/out_pct = alert when price moves by at least this many percent; min_abs_usd = ignore absolute moves smaller than this (US$ per million tokens) to filter noise on cheap models.",
+  "models": [
+    "deepseek/deepseek-v4-flash-0731",
+    "deepseek/deepseek-v4.1-flash",
+    "deepseek/deepseek-v4-pro",
+    "qwen/qwen3.7-flash",
+    "inclusionai/ling-3.0-flash"
+  ],
+  "in_pct": 25,
+  "out_pct": 25,
+  "min_abs_usd": 0.02,
+  "baseline_path": "~/.openrouter-cost-watch/baseline.json"
+}
